@@ -16,9 +16,13 @@ class SearchController extends Controller
     public function __invoke(Request $request)
     {
         $results= null;
+        dd($results);
         if ($query = $request->get('query')){
-            $results = Post::search($query)->paginate(5);
+            $results = Post::search($query,function ($meilisearch,$query,$options){
+                return $meilisearch->search($query,$options);
+            })->get();
         }
+//        dd($results);
         return view('search',['results'=>$results]);
     }
 }

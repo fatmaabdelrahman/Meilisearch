@@ -10,6 +10,7 @@ class Post extends Model
 {
     use HasFactory, Searchable;
 
+    protected $guarded=[];
 
     public function user()
     {
