@@ -10,7 +10,7 @@
 <div class="max-w-sm mx-auto py-8">
     <form action="/search" method="get"  class="flex items-center justify-between border" enctype="multipart/form-data">
         @csrf
-        <input type="text" name="query" >
+        <input type="text" name="query"  placeholder="Search For Something...">
         <button type="submit">Search</button>
     </form>
 
@@ -21,9 +21,9 @@
                 <em> Found {{ $results->total() }}</em>
                 @foreach($results as $item)
                     <div>
-                        <h1 class="text-lg font-semibold">{{$item->title}} # {{$item->id}}</h1>
-                        <p> {{$item->body}}</p>
-                        <p> {{$item->user->name}}</p>
+                        <h1 class="text-lg font-semibold">{{$item->normalize_name}} # {{$item->id}}</h1>
+{{--                        <p> {{$item->body}}</p>--}}
+{{--                        <p> {{$item->user->name}}</p>--}}
                     </div>
                 @endforeach
 

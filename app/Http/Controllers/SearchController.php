@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Post;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -16,13 +18,13 @@ class SearchController extends Controller
     public function __invoke(Request $request)
     {
         $results= null;
-        dd($results);
-        if ($query = $request->get('query')){
-            $results = Post::search($query,function ($meilisearch,$query,$options){
-                return $meilisearch->search($query,$options);
-            })->get();
-        }
 //        dd($results);
-        return view('search',['results'=>$results]);
+        if ($query = $request->get('query')){
+            $results = Product::search($query)->get();
+        }
+
+
+        return ProductResource::collection($results);
+//        return view('search',['results'=>$results]);
     }
 }
